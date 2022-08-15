@@ -1,0 +1,34 @@
+﻿@page "/addcategory"
+<h3>Add Category</h3>
+
+@if (category != null)
+{
+    <EditForm Model="category" class="form-inline" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <InputText class="form-control" id="name" @bind-Value="category.Name"></InputText>
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Description</label>
+            <InputText class="form-control" id="description" @bind-Value="category.Description"></InputText>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Save</button>
+    </EditForm>
+}
+@code {
+    private Category category;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        category = new Category();
+    }
+    private void OnValidSubmit()
+    {
+        // add category to categories
+    }
+}
