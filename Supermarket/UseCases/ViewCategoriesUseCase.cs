@@ -1,12 +1,13 @@
 ﻿using CoreBusiness;
 using System;
+using System.Collections.Generic;
 using UseCases.DataStorePluginInterfaces;
 
 namespace UseCases
 {
     public class ViewCategoriesUseCase
     {
-        private readonly ICategoryRepository _categoryRepository { get; }
+        private readonly ICategoryRepository _categoryRepository;
         public ViewCategoriesUseCase(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
