@@ -11,6 +11,7 @@
             <tr>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -19,6 +20,7 @@
                 <tr>
                     <td>@category.Name</td>
                     <td>@category.Description</td>
+                    <td><button type="button" class="btn" @onclick="@(EditCategory(category))">Edit</button></td>
                 </tr>
             }
         </tbody>
@@ -36,8 +38,14 @@
 
         categories = ViewCategoriesUseCase.Execute().ToList();
     }
+
     private void OnClickAddCategory()
     {
         NavigationManager.NavigateTo("/addcategory");
+    }
+
+    private void EditCategory(Category category)
+    {
+        NavigationManager.NavigateTo($"/editcategory/{category.CategoryId}");
     }
 }
