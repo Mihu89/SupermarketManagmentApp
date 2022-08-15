@@ -20,6 +20,7 @@
         </div>
 
         <button class="btn btn-primary" type="submit">Save</button>
+        <button class="btn btn" @onclick="OnCancel">Cancel</button>
     </EditForm>
 }
 @code {
@@ -34,6 +35,11 @@
     {
         // add category to categories
         AddCategoryUseCase.Execute(category);
+        NavigationManager.NavigateTo("/categories");
+    }
+
+    private void OnCancel()
+    {
         NavigationManager.NavigateTo("/categories");
     }
 }
