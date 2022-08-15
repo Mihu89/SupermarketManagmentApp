@@ -1,6 +1,7 @@
 ﻿using CoreBusiness;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UseCases.DataStorePluginInterfaces;
 
 namespace Plugins.DataStore.InMemory
@@ -32,6 +33,16 @@ namespace Plugins.DataStore.InMemory
                 Description = "Sports category example"
             });
         }
+
+        public void AddCategory(Category category)
+        {
+            if (_categories.Any(x => x.Name.Equals(category.Name, StringComparison.OrdinalIgnoreCase))) return;
+            var maxCategoryId = _categories.Max(x => x.CategoryId);
+
+            category.CategoryId = maxCategoryId +1;
+            _categories.Add(category);
+        }
+
         public IEnumerable<Category> GetCategories()
         {
             return _categories;

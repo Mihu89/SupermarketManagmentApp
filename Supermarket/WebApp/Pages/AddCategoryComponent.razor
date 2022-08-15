@@ -1,4 +1,7 @@
 ﻿@page "/addcategory"
+@inject IAddCategoryUseCase AddCategoryUseCase;
+@inject NavigationManager NavigationManager;
+
 <h3>Add Category</h3>
 
 @if (category != null)
@@ -30,5 +33,7 @@
     private void OnValidSubmit()
     {
         // add category to categories
+        AddCategoryUseCase.Execute(category);
+        NavigationManager.NavigateTo("/categories");
     }
 }
