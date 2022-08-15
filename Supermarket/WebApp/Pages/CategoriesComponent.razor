@@ -1,5 +1,6 @@
 ﻿@page "/categories"
 @inject IViewCategoriesUseCase ViewCategoriesUseCase
+@inject NavigationManager NavigationManager
 
 <h3>Manage Categories</h3>
 @if (categories != null)
@@ -23,6 +24,7 @@
         </tbody>
     </table>
 
+    <button type="button" @onclick="OnClickAddCategory">Add Category</button>
 }
 
 @code {
@@ -33,5 +35,9 @@
         base.OnInitialized();
 
         categories = ViewCategoriesUseCase.Execute().ToList();
+    }
+    private void OnClickAddCategory()
+    {
+        NavigationManager.NavigateTo("/addcategory");
     }
 }
