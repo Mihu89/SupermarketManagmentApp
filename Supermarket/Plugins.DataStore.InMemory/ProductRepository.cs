@@ -41,6 +41,25 @@ namespace Plugins.DataStore.InMemory
                 }
             };
         }
+
+        public void AddProduct(Product product)
+        {
+            if (_products.Any(x => x.Name.Equals(product.Name, StringComparison.OrdinalIgnoreCase))) return;
+
+            if (_products != null && _products.Count > 0)
+            {
+                var maxProductId = _products.Max(x => x.ProductId);
+
+                product.ProductId = maxProductId + 1;
+            }
+            else
+            {
+                product.ProductId = 1;
+            }
+
+            _products.Add(product);
+        }
+
         public IEnumerable<Product> GetProducts()
         {
             return _products;
