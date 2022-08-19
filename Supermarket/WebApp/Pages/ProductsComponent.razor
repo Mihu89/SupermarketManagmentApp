@@ -1,5 +1,6 @@
 ﻿@inject IViewProductsUseCase ViewProductsUseCase
 @inject IGetCategoryByIdUseCase GetCategoryByIdUseCase
+@inject NavigationManager NavigationManager
 @page "/products"
 
 <h3>Products List</h3>
@@ -30,6 +31,7 @@
             }
         </tbody>
     </table>
+    <button type="button" @onclick="OnClickAddProduct" class="btn btn-primary">Add Product</button>
 }
 else
 {
@@ -43,5 +45,10 @@ else
     {
         base.OnInitialized();
         products = ViewProductsUseCase.Execute();
+    }
+
+    private void OnClickAddProduct()
+    {
+        NavigationManager.NavigateTo("/addproduct");
     }
 }

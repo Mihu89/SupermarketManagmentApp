@@ -49,6 +49,7 @@ namespace WebApp
 
             // DI products 
             services.AddTransient<IViewProductsUseCase, ViewProductsUseCase>();
+            services.AddTransient<IAddProductUseCase, AddProductUseCase>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
