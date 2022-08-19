@@ -43,6 +43,11 @@ namespace Plugins.DataStore.InMemory
             _categories.Add(category);
         }
 
+        public void DeleteCategory(int categoryId)
+        {
+            _categories?.Remove(GetCategoryById(categoryId));
+        }
+
         public IEnumerable<Category> GetCategories()
         {
             return _categories;
