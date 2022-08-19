@@ -17,8 +17,8 @@ namespace Plugins.DataStore.InMemory
             _categories.Add(new Category()
             {
                 CategoryId = 1,
-                 Name = "Books",
-                 Description = "Books category example"
+                Name = "Books",
+                Description = "Books category example"
             });
             _categories.Add(new Category()
             {
@@ -37,9 +37,18 @@ namespace Plugins.DataStore.InMemory
         public void AddCategory(Category category)
         {
             if (_categories.Any(x => x.Name.Equals(category.Name, StringComparison.OrdinalIgnoreCase))) return;
-            var maxCategoryId = _categories.Max(x => x.CategoryId);
 
-            category.CategoryId = maxCategoryId +1;
+            if (_categories != null && _categories.Count > 0)
+            {
+                var maxCategoryId = _categories.Max(x => x.CategoryId);
+
+                category.CategoryId = maxCategoryId + 1;
+            }
+            else
+            {
+                category.CategoryId = 1;
+            }
+
             _categories.Add(category);
         }
 
