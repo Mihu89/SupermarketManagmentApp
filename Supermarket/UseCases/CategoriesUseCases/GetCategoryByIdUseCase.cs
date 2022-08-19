@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using UseCases.DataStorePluginInterfaces;
 using UseCases.UseCaseInterfaces;
 
-namespace UseCases
+namespace UseCases.CategoriesUseCases
 {
     public class GetCategoryByIdUseCase : IGetCategoryByIdUseCase
     {
@@ -20,7 +20,7 @@ namespace UseCases
 
         public Category Execute(int categoryId)
         {
-           return _categoryRepository.GetCategoryById(categoryId);
+            return _categoryRepository.GetCategoryById(categoryId);
         }
     }
 }

@@ -1,24 +1,23 @@
 ﻿using CoreBusiness;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UseCases.DataStorePluginInterfaces;
 using UseCases.UseCaseInterfaces;
 
-namespace UseCases
+namespace UseCases.CategoriesUseCases
 {
-    public class ViewCategoriesUseCase : IViewCategoriesUseCase
+    public class AddCategoryUseCase : IAddCategoryUseCase
     {
         private readonly ICategoryRepository _categoryRepository;
-        public ViewCategoriesUseCase(ICategoryRepository categoryRepository)
+
+        public AddCategoryUseCase(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
         }
-
-
-        public IEnumerable<Category> Execute()
+        public void Execute(Category category)
         {
-            return _categoryRepository.GetCategories();
+            _categoryRepository.AddCategory(category);
         }
-
     }
 }
