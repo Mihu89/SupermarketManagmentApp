@@ -10,5 +10,6 @@ namespace UseCases.DataStorePluginInterfaces
         void Update(Product product);
         Product GetProductById(int productId);
         void DeleteProduct(int productId);
+        IEnumerable<Product> GetProductByCategoryId(int categoryId);
     }
 }
