@@ -61,7 +61,9 @@
         if(int.TryParse(this.ProductId, out int iproductId))
         {
             var prod = GetProductByIdUseCase.GetProductById(iproductId);
-            product = new Product
+            if (prod != null)
+            {
+                product = new Product
                 {
                     ProductId = prod.ProductId,
                     Name = prod.Name,
@@ -69,6 +71,8 @@
                     Price = prod.Price,
                     Quantity = prod.Quantity,
                 };
+            }
+            
         }
 
     }
