@@ -1,0 +1,28 @@
+﻿<h3>Details about product</h3>
+@if (SelectedProduct != null)
+{
+    <EditForm Model="SelectedProduct" OnInvalidSubmit="SellProduct">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+        <div class="form-group">
+            <label for="name">Product Name</label>
+            <input type="text" readonly value="@SelectedProduct.Name" />
+    </div>
+        <div class="form-group">
+            <label for="price">Product Price</label>
+            <input type="number" readonly value="@SelectedProduct.Price" />
+    </div>
+        <div class="form-group">
+            <label for="quantity">Product Quantity</label>
+            <input type="number" readonly value="@SelectedProduct.Quantity" />
+    </div>
+    </EditForm>
+}
+
+
+@code {
+    [Parameter]
+    public Product SelectedProduct { get; set; }
+
+    private void SellProduct() { }
+}

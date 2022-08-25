@@ -1,5 +1,6 @@
 ﻿@inject IViewCategoriesUseCase ViewCategoriesUseCase;
 @inject IViewProductsByCategoryIdUseCase ViewProductsByCategoryIdUseCase;
+@inject IGetProductByIdUseCase GetProductByIdUseCase;
 
 <h3>Select Product For Selling</h3>
 
@@ -27,7 +28,7 @@
         <tbody>
             @foreach (var product in productsFromCategory)
             {
-                <tr>
+                <tr @onclick="@(() => OnSelectProduct(product))" style="cursor:pointer">
                     <td>@product.Name</td>
                     <td>@Math.Round(@product.Price, 2)</td>
                     <td>@product.Quantity</td>
@@ -40,6 +41,8 @@
 @code {
     private IEnumerable<Category> categories;
     private IEnumerable<Product> productsFromCategory;
+    [Parameter]
+    public EventCallback<Product> OnProductSelected { get; set; }
 
     private int selectedCategoryId;
     public int SelectedCategoryId
@@ -59,4 +62,8 @@
         categories = ViewCategoriesUseCase.Execute();
     }
 
+    private void OnSelectProduct(Product product)
+    {
+        OnProductSelected.InvokeAsync(product);
+    }
 }
