@@ -28,7 +28,8 @@
         <tbody>
             @foreach (var product in productsFromCategory)
             {
-                <tr @onclick="@(() => OnSelectProduct(product))" style="cursor:pointer">
+                <tr @onclick="@(() => OnSelectProduct(product))" 
+                    style="@(product.ProductId == selectedProductId ? "background-color:beige;cursor:pointer" : "cursor:pointer")">
                     <td>@product.Name</td>
                     <td>@Math.Round(@product.Price, 2)</td>
                     <td>@product.Quantity</td>
@@ -44,6 +45,7 @@
     [Parameter]
     public EventCallback<Product> OnProductSelected { get; set; }
 
+    private int selectedProductId;
     private int selectedCategoryId;
     public int SelectedCategoryId
     {
@@ -64,6 +66,7 @@
 
     private void OnSelectProduct(Product product)
     {
+        selectedProductId = product.ProductId;
         OnProductSelected.InvokeAsync(product);
     }
 }

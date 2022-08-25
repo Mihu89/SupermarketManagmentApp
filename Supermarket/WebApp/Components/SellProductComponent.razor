@@ -1,28 +1,74 @@
-﻿<h3>Details about product</h3>
+﻿@inject IGetProductByIdUseCase GetProductByIdUseCase;
+<h3>Details about product</h3>
 @if (SelectedProduct != null)
 {
-    <EditForm Model="SelectedProduct" OnInvalidSubmit="SellProduct">
+    <EditForm Model="SelectedProduct" OnValidSubmit="SellProduct">
         <DataAnnotationsValidator></DataAnnotationsValidator>
         <ValidationSummary></ValidationSummary>
         <div class="form-group">
             <label for="name">Product Name</label>
-            <input type="text" readonly value="@SelectedProduct.Name" />
-    </div>
+            <input class="form-control" type="text" id="name" readonly value="@productToSell.Name" />
+        </div>
         <div class="form-group">
             <label for="price">Product Price</label>
-            <input type="number" readonly value="@SelectedProduct.Price" />
-    </div>
+            <input class="form-control" type="number" id="price" readonly @bind-value="@productToSell.Price" />
+            @*value="@(string.Format("{0:0.00}",productToSell.Price))"*@
+        </div>
         <div class="form-group">
             <label for="quantity">Product Quantity</label>
-            <input type="number" readonly value="@SelectedProduct.Quantity" />
-    </div>
+            <input class="form-control" id="quantity" type="number" @bind-value="@productToSell.Quantity" />
+        </div>
+        <button class="btn btn-primary" type="submit">Sell</button>
     </EditForm>
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger">@errorMessage</div>
+    }
 }
 
 
 @code {
+    private Product productToSell;
+    private string errorMessage;
+
     [Parameter]
     public Product SelectedProduct { get; set; }
 
-    private void SellProduct() { }
+    [Parameter]
+    public EventCallback<Product> OnProductSold { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        if (SelectedProduct != null)
+        {
+            productToSell = new Product
+            {
+                ProductId = SelectedProduct.ProductId,
+                CategoryId = SelectedProduct.CategoryId,
+                Name = SelectedProduct.Name,
+                Price = SelectedProduct.Price,
+                Quantity = 0
+            };
+        }
+    }
+
+    private void SellProduct()
+    { 
+        // TODO: review to use inject
+        var product = GetProductByIdUseCase.GetProductById(productToSell.ProductId);
+        if (product.Quantity <= 0)
+        {
+            errorMessage = "Product should have at least 1 element in quantity to sell it";
+        }
+        else if(product.Quantity >= productToSell.Quantity)
+        {
+            OnProductSold.InvokeAsync(productToSell);
+            errorMessage = "";
+        }
+        else 
+        {
+            errorMessage = $"{product.Name} has only {product.Quantity} left. And is not enough";
+        }
+    }
 }

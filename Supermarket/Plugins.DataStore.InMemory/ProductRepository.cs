@@ -21,7 +21,7 @@ namespace Plugins.DataStore.InMemory
                     CategoryId = 1,
                     Name = "Product 1",
                     Quantity = 10,
-                    Price = 5
+                    Price = 5.10m
                 },
                  new Product()
                 {
@@ -29,7 +29,7 @@ namespace Plugins.DataStore.InMemory
                     CategoryId = 2,
                     Name = "Product 2",
                     Quantity = 20,
-                    Price = 25
+                    Price = 25.22m
                 },
                  new Product()
                 {
@@ -37,7 +37,7 @@ namespace Plugins.DataStore.InMemory
                     CategoryId = 1,
                     Name = "Amintiri din Copilarie",
                     Quantity = 30,
-                    Price = 40
+                    Price = 40.80m
                 }
             };
         }
