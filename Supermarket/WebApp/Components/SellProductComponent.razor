@@ -52,10 +52,14 @@
                 Quantity = 0
             };
         }
+        else
+        {
+            productToSell = null;
+        }
     }
 
     private void SellProduct()
-    { 
+    {
         // TODO: review to use inject
         var product = GetProductByIdUseCase.GetProductById(productToSell.ProductId);
         if (product.Quantity <= 0)
@@ -68,7 +72,7 @@
             errorMessage = "";
             SellProductUseCase.Execute(productToSell.ProductId, productToSell.Quantity);
         }
-        else 
+        else
         {
             errorMessage = $"{product.Name} has only {product.Quantity} left. And is not enough";
         }

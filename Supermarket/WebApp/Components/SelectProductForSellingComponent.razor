@@ -67,6 +67,9 @@
     private void OnSelectProduct(Product product)
     {
         selectedProductId = product.ProductId;
-        OnProductSelected.InvokeAsync(product);
+        if(product != null)
+        {
+            OnProductSelected.InvokeAsync(product);
+        }
     }
 }
