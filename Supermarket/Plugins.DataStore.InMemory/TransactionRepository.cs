@@ -8,15 +8,37 @@ namespace Plugins.DataStore.InMemory
 {
     public class TransactionRepository : ITransactionRepository
     {
-        //private List<Transaction> _transactions =new List<Transaction>();
+        //private List<Transaction> _transactions = new List<Transaction>();
         private List<Transaction> _transactions;
         public TransactionRepository()
         {
             _transactions = new List<Transaction>();
         }
-        public IEnumerable<Transaction> GetTransactionsByDay(DateTime day)
+
+        public IEnumerable<Transaction> GetAll(string cashierName)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(cashierName))
+            {
+                return _transactions;
+            }
+            else
+            {
+                return _transactions.Where(x => string.Equals(x.CashierName, cashierName, StringComparison.OrdinalIgnoreCase));
+            }
+        }
+
+        public IEnumerable<Transaction> GetTransactionsByDay(string cashierName, DateTime date)
+        {
+            if (string.IsNullOrEmpty(cashierName))
+            {
+                return _transactions.Where(x => x.TimeStamp.Date == date.Date);
+            }
+            else
+            {
+                return _transactions.Where(
+                    x => x.TimeStamp.Date == date.Date
+                    && string.Equals(x.CashierName, cashierName, StringComparison.OrdinalIgnoreCase));
+            }
         }
 
         public void Save(string cashierName, int productId, decimal price, int quantity)
