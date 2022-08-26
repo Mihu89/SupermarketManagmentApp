@@ -4,7 +4,7 @@ using UseCases.UseCaseInterfaces;
 
 namespace UseCases.ProductsUseCases
 {
-    public class RecordTransactionUseCase
+    public class RecordTransactionUseCase : IRecordTransactionUseCase
     {
         private readonly ITransactionRepository _transactionRepository;
         private readonly IGetProductByIdUseCase _getProductByIdUseCase;

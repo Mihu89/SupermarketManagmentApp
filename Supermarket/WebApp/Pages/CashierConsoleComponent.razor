@@ -1,12 +1,18 @@
 ﻿@page "/cashier_console"
 
 <h3>Cashier Console</h3>
+<div class="form-group">
+    <label for="cashier">Cashier Name:</label>
+    <input type="text" id="cashier" class="form-control" @bind-value="cashierName" required />
+</div>
 <br />
 <div class="row">
     <div class="col">
         <SelectProductForSellingComponent OnProductSelected="SelectProduct"></SelectProductForSellingComponent>
         <br />
-        <SellProductComponent SelectedProduct="selectedProduct" OnProductSold="SellProduct" ></SellProductComponent>
+        <SellProductComponent SelectedProduct="selectedProduct"
+                              OnProductSold="SellProduct"
+                              CashierName="@cashierName"></SellProductComponent>
     </div>
     <div class="col">
         Some content
@@ -16,12 +22,19 @@
 
 @code {
     private Product selectedProduct;
+    private string cashierName;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
     private void SelectProduct(Product product)
     {
         selectedProduct = product;
     }
     private void SellProduct(Product product)
     {
-        
+
     }
 }

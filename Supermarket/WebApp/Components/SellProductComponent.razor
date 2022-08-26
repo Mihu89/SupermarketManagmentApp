@@ -1,5 +1,6 @@
 ﻿@inject IGetProductByIdUseCase GetProductByIdUseCase;
 @inject ISellProductUseCase SellProductUseCase;
+@inject IRecordTransactionUseCase RecordTransactionUseCase;
 <h3>Details about product</h3>
 @if (SelectedProduct != null)
 {
@@ -33,6 +34,8 @@
     private string errorMessage;
 
     [Parameter]
+    public string CashierName { get; set; }
+    [Parameter]
     public Product SelectedProduct { get; set; }
 
     [Parameter]
@@ -60,7 +63,6 @@
 
     private void SellProduct()
     {
-        // TODO: review to use inject
         var product = GetProductByIdUseCase.GetProductById(productToSell.ProductId);
         if (product.Quantity <= 0)
         {
@@ -70,7 +72,12 @@
         {
             OnProductSold.InvokeAsync(productToSell);
             errorMessage = "";
-            SellProductUseCase.Execute(productToSell.ProductId, productToSell.Quantity);
+            if (string.IsNullOrEmpty(CashierName)) {
+                //throw new ApplicationException("Missing cashier name");
+                errorMessage = "Cashier Name is required";
+                return;
+            }
+            SellProductUseCase.Execute(CashierName, productToSell.ProductId, productToSell.Quantity);
         }
         else
         {
