@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UseCases.UseCaseInterfaces;
 
 namespace UseCases.ProductsUseCases
 {
-    public class GetTransactionsUseCase
+    public class GetTransactionsUseCase : IGetTransactionsUseCase
     {
         private readonly ITransactionRepository _transactionRepository;
 
