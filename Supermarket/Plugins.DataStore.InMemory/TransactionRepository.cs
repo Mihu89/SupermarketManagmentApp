@@ -27,6 +27,20 @@ namespace Plugins.DataStore.InMemory
             }
         }
 
+        public IEnumerable<Transaction> GetByDateRange(string cashierName, DateTime startDate, DateTime endDate)
+        {
+            if (string.IsNullOrEmpty(cashierName))
+            {
+                return _transactions.Where(x => x.TimeStamp.Date <= endDate.Date && x.TimeStamp.Date>=startDate.Date);
+            }
+            else
+            {
+                return _transactions.Where(
+                    x => x.TimeStamp.Date <= endDate.Date && x.TimeStamp.Date >= startDate.Date
+                    && string.Equals(x.CashierName, cashierName, StringComparison.OrdinalIgnoreCase));
+            }
+        }
+
         public IEnumerable<Transaction> GetTransactionsByDay(string cashierName, DateTime date)
         {
             if (string.IsNullOrEmpty(cashierName))
