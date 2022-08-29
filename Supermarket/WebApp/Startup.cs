@@ -58,6 +58,7 @@ namespace WebApp
             services.AddTransient<ISellProductUseCase, SellProductUseCase>();
             // Transactions
             services.AddTransient<IRecordTransactionUseCase, RecordTransactionUseCase>();
+            services.AddTransient<IGetTodayTransactionsUseCase, GetTodayTransactionsUseCase>();
 
         }
 

@@ -1,10 +1,11 @@
 ﻿using CoreBusiness;
 using System;
 using System.Collections.Generic;
+using UseCases.UseCaseInterfaces;
 
 namespace UseCases.ProductsUseCases
 {
-    public class GetTodayTransactionsUseCase
+    public class GetTodayTransactionsUseCase : IGetTodayTransactionsUseCase
     {
         private readonly ITransactionRepository _transactionRepository;
 

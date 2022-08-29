@@ -1,13 +1,21 @@
 ﻿@page "/cashier_console"
 
-<h3>Cashier Console</h3>
-<div class="form-group">
-    <label for="cashier">Cashier Name:</label>
-    <input type="text" id="cashier" class="form-control" @bind-value="cashierName" required />
-</div>
-<br />
 <div class="row">
-    <div class="col">
+    <div class="col-7">
+        <h3>Cashier Console</h3>
+    </div>
+    <div class="col-2">
+        <label for="cashier">Cashier Name:</label>
+    </div>
+    <div class="col-3">
+        <div class="form-group">
+            <input type="text" id="cashier" class="form-control" @bind-value="cashierName" required />
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-4">
         <SelectProductForSellingComponent OnProductSelected="SelectProduct"></SelectProductForSellingComponent>
         <br />
         <SellProductComponent SelectedProduct="selectedProduct"
@@ -15,7 +23,7 @@
                               CashierName="@cashierName"></SellProductComponent>
     </div>
     <div class="col">
-        Some content
+        <TodayTransactionsComponent @ref="transactionsComponent"></TodayTransactionsComponent>
     </div>
 </div>
 
@@ -23,11 +31,22 @@
 @code {
     private Product selectedProduct;
     private string cashierName;
+    private TodayTransactionsComponent transactionsComponent;
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
     }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            transactionsComponent.LoadTransactions(cashierName);
+        }
+    }
+
 
     private void SelectProduct(Product product)
     {
@@ -35,6 +54,6 @@
     }
     private void SellProduct(Product product)
     {
-
+        transactionsComponent.LoadTransactions(cashierName);
     }
 }

@@ -41,7 +41,7 @@ namespace Plugins.DataStore.InMemory
             }
         }
 
-        public void Save(string cashierName, int productId, decimal price, int quantity)
+        public void Save(string cashierName, int productId, string productName, decimal price, int beforeQuantity, int soldQuantity)
         {
             int transactionId = 1;
             if (_transactions != null && _transactions.Count > 0)
@@ -54,9 +54,11 @@ namespace Plugins.DataStore.InMemory
             {
                 TransactionId = transactionId,
                 ProductId = productId,
+                ProductName = productName,
                 TimeStamp = DateTime.UtcNow,
                 Price = price,
-                Quantity = quantity,
+                BeforeQuantity = beforeQuantity,
+                Quantity = soldQuantity,
                 CashierName = cashierName
             });
         }

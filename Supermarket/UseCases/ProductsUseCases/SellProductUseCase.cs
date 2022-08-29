@@ -18,12 +18,12 @@ namespace UseCases.ProductsUseCases
         {
             var productToSell = _productRepository.GetProductById(productId);
             if (productToSell == null) return;
+
+            // add transaction of sell product
+            _recordTransactionUseCase.Execute(cashierName, productId, quantityToSell);
             // change product quantity
             productToSell.Quantity -= quantityToSell;
-
-            // update product
             _productRepository.Update(productToSell);
-            _recordTransactionUseCase.Execute(cashierName, productId, quantityToSell);
         }
     }
 }
