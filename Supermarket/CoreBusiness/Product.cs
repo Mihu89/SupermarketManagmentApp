@@ -13,5 +13,8 @@ namespace CoreBusiness
         public int Quantity { get; set; }
         [Required]
         public decimal Price { get; set; }
+
+        // navigation properties
+        public Category Category { get; set; }
     }
 }
