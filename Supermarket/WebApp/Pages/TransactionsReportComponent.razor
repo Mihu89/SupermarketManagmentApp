@@ -19,6 +19,9 @@
     <div class="col-2">
         <button type="button" class="btn btn-primary" @onclick="LoadTransactions">Search</button>
     </div>
+    <div class="col-2">
+        <button type="button" class="btn btn-primary" @onclick="PrintTransactions">Print</button>
+    </div>
 </div>
 <br />
 @if (transactions != null)
@@ -77,4 +80,8 @@
     {
         transactions = GetTransactionsUseCase.Execute(cashierName, startDate, endDate);
     }
+    private void PrintTransactions()
+        {
+            // write an implementation to generate a file
+        }
 }
